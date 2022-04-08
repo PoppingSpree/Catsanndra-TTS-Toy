@@ -17,12 +17,17 @@ namespace Catsanndra_TTS_Toy
     public partial class frmCatsanndraTTSToy : Form
     {
         SpVoice voice = new SpVoice();
-        ThreadStart thRefSpeak;
         Thread thSpeak;
+
+        ThreadStart thRefSpeakNoSkip;
+        Thread thSpeakNoSkip;
 
         ThreadStart thRefListen;
         Thread thListen;
         ISpeechObjectTokens voices;
+
+        int selectedVoiceIndex = -1;
+
 
         string portNum = "8734";
 
@@ -34,8 +39,8 @@ namespace Catsanndra_TTS_Toy
         {
             InitializeComponent();
             this.voice = new SpVoice();
-            this.thRefSpeak = new ThreadStart(SpeakCurrentText);
-            this.thSpeak = new Thread(thRefSpeak);
+
+            this.thSpeakNoSkip = new Thread(SpeakCurrentTextNoSkip);
 
             this.thRefListen = new ThreadStart(ListenForHttpRequests);
             this.thListen = new Thread(thRefListen);
@@ -44,6 +49,12 @@ namespace Catsanndra_TTS_Toy
             foreach (SpObjectToken voiceOption in voices)
             {
                 WriteLine(voiceOption.Id);
+                string voiceName = voiceOption.Id.Substring(voiceOption.Id.LastIndexOf("\\") + 1);
+                cmbVoices.Items.Add(voiceName);
+                if (voiceName.Contains("VW Bridget")) 
+                {
+                    cmbVoices.SelectedIndex = cmbVoices.Items.Count - 1;
+                }
             }
 
             string thePrefix = "http://localhost:" + portNum + "/";
@@ -56,22 +67,46 @@ namespace Catsanndra_TTS_Toy
 
         private void btnSpeak_Click(object sender, EventArgs e)
         {
-            
 
-            this.thSpeak = new Thread(this.thRefSpeak);
-            this.thSpeak.Start();
+            //voice.Voice = voices.Item(cmbVoices.SelectedIndex);
+            SpeechParams speechParams = new SpeechParams(txtInput.Text, cmbVoices.SelectedIndex);
+            this.thSpeak = new Thread(SpeakCurrentText);
+            this.thSpeak.Start(speechParams);
         }
 
-        public void SpeakCurrentText() 
+        public void SpeakCurrentText(object speechParams)
         {
+            SpeechParams theSpeechParams = (SpeechParams)speechParams;
             voice.Skip("Sentence", 9999);
-            voice.Speak(txtInput.Text, SpeechVoiceSpeakFlags.SVSFDefault);
+            if (theSpeechParams.IndexOfVoice > -1) 
+            {
+                voice.Voice = voices.Item(theSpeechParams.IndexOfVoice);
+                voice.Rate = theSpeechParams.Rate;
+            }
+            voice.Speak("<pitch absmiddle=\"" + theSpeechParams.Pitch + "\">" + theSpeechParams.WhatToSay + "</pitch>", SpeechVoiceSpeakFlags.SVSFDefault);
+        }
+
+        public void SpeakCurrentTextNoSkip(object speechParams)
+        {
+            SpeechParams theSpeechParams = (SpeechParams)speechParams;
+            if (theSpeechParams.IndexOfVoice > -1)
+            {
+                voice.Voice = voices.Item(theSpeechParams.IndexOfVoice);
+                voice.Rate = theSpeechParams.Rate;
+            }
+            voice.Speak("<pitch absmiddle=\"" + theSpeechParams.Pitch + "\">" + theSpeechParams.WhatToSay + "</pitch>", SpeechVoiceSpeakFlags.SVSFDefault);
         }
 
         public void SpeakText(string textToBeSpoken)
         {
             voice.Skip("Sentence", 9999);
             voice.Speak(textToBeSpoken, SpeechVoiceSpeakFlags.SVSFDefault);
+        }
+
+        public void SpeakTextNoSkip(SpeechParams speechParams)
+        {
+            SpeechParams theSpeechParams = (SpeechParams)speechParams;
+            voice.Speak(theSpeechParams.WhatToSay, SpeechVoiceSpeakFlags.SVSFDefault);
         }
 
         public void WriteLine(string txt) 
@@ -109,7 +144,10 @@ namespace Catsanndra_TTS_Toy
 
             if (sayThis != null && sayThis != "") 
             {
-                SpeakText(sayThis);
+                SpeechParams speechParams = new SpeechParams(sayThis, selectedVoiceIndex);
+                this.thSpeakNoSkip = new Thread(SpeakCurrentTextNoSkip);
+                this.thSpeakNoSkip.Start(speechParams);
+                //SpeakTextNoSkip(sayThis);
             }
         }
 
@@ -127,8 +165,13 @@ namespace Catsanndra_TTS_Toy
         {
             SpeakText("");
             this.quitNow = true;
-            thSpeak.Abort();
+            //thSpeak.Abort();
             thListen.Abort();
+        }
+
+        private void cmbVoices_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedVoiceIndex = cmbVoices.SelectedIndex;
         }
     }
 }

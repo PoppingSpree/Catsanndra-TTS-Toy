@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Catsanndra_TTS_Toy
 {
-    static class Program
+    static class CatsanndraTTSToy
     {
         /// <summary>
         /// The main entry point for the application.

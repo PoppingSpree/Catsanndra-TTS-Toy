@@ -52,8 +52,9 @@
     <Compile Include="FormCatsanndraTTSToy.Designer.cs">
       <DependentUpon>FormCatsanndraTTSToy.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="CatsanndraTTSToy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpeechParams.cs" />
     <EmbeddedResource Include="FormCatsanndraTTSToy.resx">
       <DependentUpon>FormCatsanndraTTSToy.cs</DependentUpon>
     </EmbeddedResource>

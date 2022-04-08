@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCatsanndraTTSToy));
             this.txtInput = new System.Windows.Forms.TextBox();
             this.btnSpeak = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbVoices = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.txtDebugOutput = new System.Windows.Forms.TextBox();
@@ -57,13 +57,14 @@
             this.btnSpeak.UseVisualStyleBackColor = true;
             this.btnSpeak.Click += new System.EventHandler(this.btnSpeak_Click);
             // 
-            // comboBox1
+            // cmbVoices
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(453, 43);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 2;
+            this.cmbVoices.FormattingEnabled = true;
+            this.cmbVoices.Location = new System.Drawing.Point(453, 43);
+            this.cmbVoices.Name = "cmbVoices";
+            this.cmbVoices.Size = new System.Drawing.Size(121, 21);
+            this.cmbVoices.TabIndex = 2;
+            this.cmbVoices.SelectedIndexChanged += new System.EventHandler(this.cmbVoices_SelectedIndexChanged);
             // 
             // comboBox2
             // 
@@ -98,7 +99,7 @@
             this.Controls.Add(this.txtDebugOutput);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbVoices);
             this.Controls.Add(this.btnSpeak);
             this.Controls.Add(this.txtInput);
             this.Name = "frmCatsanndraTTSToy";
@@ -113,7 +114,7 @@
 
         private System.Windows.Forms.TextBox txtInput;
         private System.Windows.Forms.Button btnSpeak;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbVoices;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.TextBox txtDebugOutput;
