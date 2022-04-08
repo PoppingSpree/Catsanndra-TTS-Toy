@@ -13,6 +13,7 @@ namespace Catsanndra_TTS_Toy
         public int Rate { get; set; } = 0;
         public int Pitch { get; set; } = 0;
 
+
         public SpeechParams(string whatToSay, int indexOfVoice)
         {
             this.WhatToSay = whatToSay;

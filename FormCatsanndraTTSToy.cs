@@ -126,6 +126,7 @@ namespace Catsanndra_TTS_Toy
             HttpListenerResponse response = context.Response;
 
             string sayThis = request.QueryString.Get("speak");
+            string whichVoice = request.QueryString.Get("voice");
 
             // Construct a response.
             string responseString = "<HTML><BODY>";
@@ -145,6 +146,15 @@ namespace Catsanndra_TTS_Toy
             if (sayThis != null && sayThis != "") 
             {
                 SpeechParams speechParams = new SpeechParams(sayThis, selectedVoiceIndex);
+                if (whichVoice != null && whichVoice != "")
+                {
+                    speechParams.IndexOfVoice = int.Parse(whichVoice);
+                    if (speechParams.IndexOfVoice < 2) 
+                    {
+                        speechParams.Rate = 1;
+                        speechParams.Pitch = 1;
+                    }
+                }
                 this.thSpeakNoSkip = new Thread(SpeakCurrentTextNoSkip);
                 this.thSpeakNoSkip.Start(speechParams);
                 //SpeakTextNoSkip(sayThis);
