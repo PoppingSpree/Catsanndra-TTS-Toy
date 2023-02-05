@@ -32,7 +32,7 @@
             this.txtInput = new System.Windows.Forms.TextBox();
             this.btnSpeak = new System.Windows.Forms.Button();
             this.cmbVoices = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cmbAudioDevices = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.txtDebugOutput = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -51,7 +51,7 @@
             // 
             this.btnSpeak.Location = new System.Drawing.Point(453, 13);
             this.btnSpeak.Name = "btnSpeak";
-            this.btnSpeak.Size = new System.Drawing.Size(75, 23);
+            this.btnSpeak.Size = new System.Drawing.Size(335, 23);
             this.btnSpeak.TabIndex = 1;
             this.btnSpeak.Text = "Speak";
             this.btnSpeak.UseVisualStyleBackColor = true;
@@ -62,24 +62,24 @@
             this.cmbVoices.FormattingEnabled = true;
             this.cmbVoices.Location = new System.Drawing.Point(453, 43);
             this.cmbVoices.Name = "cmbVoices";
-            this.cmbVoices.Size = new System.Drawing.Size(121, 21);
+            this.cmbVoices.Size = new System.Drawing.Size(335, 21);
             this.cmbVoices.TabIndex = 2;
             this.cmbVoices.SelectedIndexChanged += new System.EventHandler(this.cmbVoices_SelectedIndexChanged);
             // 
-            // comboBox2
+            // cmbAudioDevices
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(453, 71);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 3;
+            this.cmbAudioDevices.FormattingEnabled = true;
+            this.cmbAudioDevices.Location = new System.Drawing.Point(453, 71);
+            this.cmbAudioDevices.Name = "cmbAudioDevices";
+            this.cmbAudioDevices.Size = new System.Drawing.Size(335, 21);
+            this.cmbAudioDevices.TabIndex = 3;
             // 
             // comboBox3
             // 
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Location = new System.Drawing.Point(453, 99);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
+            this.comboBox3.Size = new System.Drawing.Size(335, 21);
             this.comboBox3.TabIndex = 4;
             // 
             // txtDebugOutput
@@ -98,7 +98,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.txtDebugOutput);
             this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.cmbAudioDevices);
             this.Controls.Add(this.cmbVoices);
             this.Controls.Add(this.btnSpeak);
             this.Controls.Add(this.txtInput);
@@ -115,7 +115,7 @@
         private System.Windows.Forms.TextBox txtInput;
         private System.Windows.Forms.Button btnSpeak;
         private System.Windows.Forms.ComboBox cmbVoices;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cmbAudioDevices;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.TextBox txtDebugOutput;
     }

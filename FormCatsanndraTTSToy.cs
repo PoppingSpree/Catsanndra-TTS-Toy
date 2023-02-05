@@ -25,6 +25,7 @@ namespace Catsanndra_TTS_Toy
         ThreadStart thRefListen;
         Thread thListen;
         ISpeechObjectTokens voices;
+        ISpeechObjectTokens audioOutputs;
 
         int selectedVoiceIndex = -1;
 
@@ -57,6 +58,15 @@ namespace Catsanndra_TTS_Toy
                 }
             }
 
+            audioOutputs = voice.GetAudioOutputs();
+            foreach (SpObjectToken audioOutput in audioOutputs)
+            {
+                WriteLine(audioOutput.GetDescription());
+                string voiceName = audioOutput.GetDescription();
+                cmbAudioDevices.Items.Add(voiceName);
+            }
+
+
             string thePrefix = "http://localhost:" + portNum + "/";
             httpListener.Prefixes.Add(thePrefix);
 
@@ -71,15 +81,21 @@ namespace Catsanndra_TTS_Toy
             //voice.Voice = voices.Item(cmbVoices.SelectedIndex);
             SpeechParams speechParams = new SpeechParams(txtInput.Text, cmbVoices.SelectedIndex);
             this.thSpeak = new Thread(SpeakCurrentText);
-            this.thSpeak.Start(speechParams);
+            //this.thSpeak.Start(speechParams, cmbAudioDevices.SelectedIndex);
+            this.thSpeak.Start(new object[] { speechParams, cmbAudioDevices.SelectedIndex });
         }
 
-        public void SpeakCurrentText(object speechParams)
+        public void SpeakCurrentText(object parms)
         {
-            SpeechParams theSpeechParams = (SpeechParams)speechParams;
+            object[] arrParms = (object[])parms;
+            //object speechParams, int audioDeviceIndex
+
+            SpeechParams theSpeechParams = (SpeechParams)arrParms[0];
+            int audioDeviceIndex = (int)arrParms[1];
             voice.Skip("Sentence", 9999);
             if (theSpeechParams.IndexOfVoice > -1) 
             {
+                voice.AudioOutput = audioOutputs.Item(audioDeviceIndex);
                 voice.Voice = voices.Item(theSpeechParams.IndexOfVoice);
                 voice.Rate = theSpeechParams.Rate;
             }

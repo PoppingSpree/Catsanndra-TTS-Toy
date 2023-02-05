@@ -1,7 +1,6 @@
 D:\Code\SAPIThingy\Catsanndra TTS Toy\bin\Debug\Catsanndra TTS Toy.exe.config
 D:\Code\SAPIThingy\Catsanndra TTS Toy\bin\Debug\Catsanndra TTS Toy.exe
 D:\Code\SAPIThingy\Catsanndra TTS Toy\bin\Debug\Catsanndra TTS Toy.pdb
-D:\Code\SAPIThingy\Catsanndra TTS Toy\obj\Debug\Catsanndra TTS Toy.csprojAssemblyReference.cache
 D:\Code\SAPIThingy\Catsanndra TTS Toy\obj\Debug\Interop.SpeechLib.dll
 D:\Code\SAPIThingy\Catsanndra TTS Toy\obj\Debug\Catsanndra TTS Toy.csproj.ResolveComReference.cache
 D:\Code\SAPIThingy\Catsanndra TTS Toy\obj\Debug\Catsanndra_TTS_Toy.Properties.Resources.resources
@@ -10,3 +9,9 @@ D:\Code\SAPIThingy\Catsanndra TTS Toy\obj\Debug\Catsanndra TTS Toy.csproj.CoreCo
 D:\Code\SAPIThingy\Catsanndra TTS Toy\obj\Debug\Catsanndra TTS Toy.exe
 D:\Code\SAPIThingy\Catsanndra TTS Toy\obj\Debug\Catsanndra TTS Toy.pdb
 D:\Code\SAPIThingy\Catsanndra TTS Toy\obj\Debug\Catsanndra_TTS_Toy.frmCatsanndraTTSToy.resources
+D:\Code\SAPIThingy\Catsanndra TTS Toy\obj\Debug\Catsanndra TTS Toy.csproj.AssemblyReference.cache
+D:\Code\SAPIThingy\Catsanndra TTS Toy\obj\Debug\Catsanndra TTS Toy.csproj.SuggestedBindingRedirects.cache
+D:\Code\SAPIThingy\Catsanndra TTS Toy\bin\Debug\Catsanndra TTS Toy.exe.manifest
+D:\Code\SAPIThingy\Catsanndra TTS Toy\bin\Debug\Catsanndra TTS Toy.application
+D:\Code\SAPIThingy\Catsanndra TTS Toy\obj\Debug\Catsanndra TTS Toy.exe.manifest
+D:\Code\SAPIThingy\Catsanndra TTS Toy\obj\Debug\Catsanndra TTS Toy.application
