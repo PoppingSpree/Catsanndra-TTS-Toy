@@ -102,11 +102,16 @@ namespace Catsanndra_TTS_Toy
             voice.Speak("<pitch absmiddle=\"" + theSpeechParams.Pitch + "\">" + theSpeechParams.WhatToSay + "</pitch>", SpeechVoiceSpeakFlags.SVSFDefault);
         }
 
-        public void SpeakCurrentTextNoSkip(object speechParams)
+        public void SpeakCurrentTextNoSkip(object parms)
         {
-            SpeechParams theSpeechParams = (SpeechParams)speechParams;
+            object[] arrParms = (object[])parms;
+            //object speechParams, int audioDeviceIndex
+
+            SpeechParams theSpeechParams = (SpeechParams)arrParms[0];
+            int audioDeviceIndex = (int)arrParms[1];
             if (theSpeechParams.IndexOfVoice > -1)
             {
+                voice.AudioOutput = audioOutputs.Item(audioDeviceIndex);
                 voice.Voice = voices.Item(theSpeechParams.IndexOfVoice);
                 voice.Rate = theSpeechParams.Rate;
             }
@@ -143,6 +148,7 @@ namespace Catsanndra_TTS_Toy
 
             string sayThis = request.QueryString.Get("speak");
             string whichVoice = request.QueryString.Get("voice");
+            string whichVoiceName = request.QueryString.Get("voicename");
 
             // Construct a response.
             string responseString = "<HTML><BODY>";
@@ -162,7 +168,19 @@ namespace Catsanndra_TTS_Toy
             if (sayThis != null && sayThis != "") 
             {
                 SpeechParams speechParams = new SpeechParams(sayThis, selectedVoiceIndex);
-                if (whichVoice != null && whichVoice != "")
+                if (whichVoiceName != null && whichVoiceName != "")
+                {
+                    // Iterate through all of the voices to see if a voice's name contains the voice name we're looking for.
+                    for (int i = 0; i < voices.Count; i++)
+                    {
+                        if (voices.Item(i).GetDescription().ToLower().Contains(whichVoiceName.ToLower()))
+                        {
+                            speechParams.IndexOfVoice = i;
+                            break;
+                        }
+                    }
+                }
+                else if (whichVoice != null && whichVoice != "")
                 {
                     speechParams.IndexOfVoice = int.Parse(whichVoice);
                     if (speechParams.IndexOfVoice < 2) 
@@ -172,7 +190,24 @@ namespace Catsanndra_TTS_Toy
                     }
                 }
                 this.thSpeakNoSkip = new Thread(SpeakCurrentTextNoSkip);
-                this.thSpeakNoSkip.Start(speechParams);
+
+
+                int whichDevice = 0;
+                for (int i = 0; i < audioOutputs.Count; i++) 
+                {
+                    if (audioOutputs.Item(i).GetDescription().Contains("Crusher ANC Stereo")) 
+                    {
+                        whichDevice = i;
+                        break;
+                    }
+                    else if (audioOutputs.Item(i).GetDescription().Contains("Focusrite"))
+                    {
+                        whichDevice = i;
+                        break;
+                    }
+                }
+                //this.thSpeakNoSkip.Start(speechParams);
+                this.thSpeakNoSkip.Start(new object[] { speechParams, whichDevice });
                 //SpeakTextNoSkip(sayThis);
             }
         }
